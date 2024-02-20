@@ -93,7 +93,7 @@ main{
     left: 0;
     top:4px;
 }
-.icons div{
+.icons a{
     border:1px solid black;
     display: flex;
     justify-content: center;
@@ -101,6 +101,10 @@ main{
     width:35px;
     height: 35px;
     margin: 0 6px;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    color:black;
 }
 .facebook-icon, .insta-icon, .youtube-icon{
     font-size: 30px;;
