@@ -11,7 +11,7 @@ header h1{
 hr{
     border-width: 0; 
     background-color: black;
-   height: 4px;
+    height: 4px;
 }
 .section1, .section3{
     display:flex;
