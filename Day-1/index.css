@@ -1,0 +1,41 @@
+h1{
+    color: red;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+main{
+    margin-left: 5rem;
+}
+.section-1{
+    border:2px solid black;
+    margin:1rem 0rem;
+    padding:0px 14px;
+}
+.section-1 p, .section-2 p{
+    font-size: 22px;
+    font-weight: 550;
+    color:#442a2ad6
+}
+.section-2{
+    margin-left: 24rem;
+    margin-top: 32px;
+    margin-right: 12px;
+    text-align: right;
+}
+.sub-heading-1{
+    color:red;
+}
+.sub-heading-2{
+    color:blue
+}
+.section-3{
+    margin: 0 8rem;
+}
+.section-3 p{
+    font-size: 22px;
+    font-weight: 550;
+    color:#413e3ed6;
+    text-indent: 90px;
+    /* text-align:center; */
+    
+}
