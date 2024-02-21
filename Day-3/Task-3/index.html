@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>JavaScript Ex2</title>
+
+        <style>
+            .d-grid{
+                display: grid;
+                grid-template-columns: auto auto;
+                border:1px solid;
+                margin:10px;
+                gap:10px;
+                padding:10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>JavaScript to handle radio/checkbox change</h1>
+        <hr>
+
+        <div class="container">
+            <input type="radio" id="r1" name="technology" value="Python Django Framework" onchange="select_technology(this)"/>
+            <label for="r1">Python Django Framework</label>
+
+            <input type="radio" id="r2" name="technology" value="Java Spring Boot" onchange="select_technology(this)"/>
+            <label for="r2">Java Spring Boot</label>
+
+            <input type="radio" id="r3" name="technology" value="Machine Learning & AI" onchange="select_technology(this)"/>
+            <label for="r3">Machine Learning & AI</label>
+
+            <input type="radio" id="r4" name="technology" value="Swift Programming" onchange="select_technology(this)"/>
+            <label for="r4">Swift Programming</label>
+
+            <h3 id="selected-tech">null</h3>
+        </div>
+
+        <div class="container">
+            <input type="checkbox" id="c1" value="Python Django Framework" onchange="select_technology2(this)"/>
+            <label for="c1">Python Django Framework</label>
+
+            <input type="checkbox" id="c2" value="Java Spring Boot" onchange="select_technology2(this)"/>
+            <label for="c2">Java Spring Boot</label>
+
+            <input type="checkbox" id="c3" value="Machine Learning & AI" onchange="select_technology2(this)"/>
+            <label for="c3">Machine Learning & AI</label>
+
+            <input type="checkbox" id="c4" value="Swift Programming" onchange="select_technology2(this)"/>
+            <label for="c4">Swift Programming</label>
+
+            <h3 id="selected">null</h3>
+        </div>
+
+        <div class="d-grid">
+            <div>
+                <input type="checkbox" id="m1" value="Pizza" onchange="selectMenu(this)"/>
+                <label for="m1">Pizza</label>
+
+                <input type="checkbox" id="m2" value="Water Bottle" onchange="selectMenu(this)"/>
+                <label for="m2">Water Bottle</label>
+
+                <input type="checkbox" id="m3" value="Coldrink" onchange="selectMenu(this)"/>
+                <label for="m3">Coldrink</label>
+
+                <input type="checkbox" id="m4" value="Burger" onchange="selectMenu(this)"/>
+                <label for="m4">Burger</label>
+            </div>
+            <div>
+                <select id="menu-options">
+                    <option>Select Menus</option>
+                </select>
+            </div>
+        </div>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
