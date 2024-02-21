@@ -3,7 +3,48 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     width: 100%;
     box-sizing: border-box;
+    height: 99vh;
+    width:99vw;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: 5rem auto;
+    border:1px solid black;
+    padding: 2rem;
+    width: 20rem;
+    height: 24rem;
+}
+.input-box{
+    display: flex;
+    justify-content: space-between;
+}
+input{
+    width: 9rem;
+    height: 2rem ;
+    font-size: 17px;
+    text-align: center;
+}
+input::placeholder {
+    color: gray; /* Placeholder text color */
+     font-size: 16px;
+  }
+.buttons{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr ;
+    gap:10px;
+    margin-top: 1rem;
+}
+button{
+    width:6rem;
+    height: 2rem;
+    font-size: 17px;
+    font-weight: 600;
+}
+.result{
+    margin-top: 2rem;
+    align-self: center;
 }
