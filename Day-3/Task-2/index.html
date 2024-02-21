@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./index.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <input type="number" id="distance" placeholder="distance in km*">
+            <button onClick="convertDistance()">Convert</button>
+            <hr>
+            <pre>Meter:        <span id="meter">null</span></pre>
+            <pre>Centimeter:   <span id="centimeter">null</span></pre>
+            <pre>Inches:       <span id="inches">null</span></pre>
+            <pre>Feet:         <span id="feet">null</span></pre>
+        </div>
+        <div class="box">
+            <input type="number" id="gb" placeholder="Storage capacity in GB*">
+            <button onClick="convertGB()">Convert</button>
+            <hr>
+            <input id="megabytes" placeholder="megabytes"></input>
+            <input id="kilobytes" placeholder="kilobytes"></input>
+            <input id="bytes" placeholder="bytes"></input>
+            <input id="bits" placeholder="bits"></input>
+        </div>
+    </div>
+</body>
+</html>
