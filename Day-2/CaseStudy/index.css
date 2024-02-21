@@ -110,3 +110,7 @@ main{
 .facebook-icon, .insta-icon, .youtube-icon{
     font-size: 30px;;
 }
+.insta{
+    width: 20px;
+    height:20px;
+}
