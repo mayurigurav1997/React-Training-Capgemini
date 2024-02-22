@@ -486,3 +486,17 @@ for(let item of bank_app)
 }
 console.log(result);
 
+const updated_array=bank_app.map(account => {
+    let transaction ={
+        withdraw:"INR " + account.transaction
+        .filter(tran => tran.type=="WITHDRAW")
+        .map(t=>Number(t.amount.split(" ")[1]))
+        .reduce((p,c)=>p+c,0),
+        deposit:"INR " + account.transaction
+        .filter(r=>r.type=="DEPOSIT")
+        .map(t=>Number(t.amount.split(" ")[1]))
+        .reduce((p,c)=>p+c,0),
+    }
+    return {accname:account.accname, transaction:transaction};
+})
+console.log(JSON.stringify(updated_array,null,2))
