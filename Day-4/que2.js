@@ -485,3 +485,4 @@ for(let item of bank_app)
     result.push({accname:item.accname, transaction:{withdraw:"INR "+ totalw, deposit:"INR " + totald}})
 }
 console.log(result);
+
