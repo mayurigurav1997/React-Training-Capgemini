@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="./bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./index.css">
+    <script src="./index.js" defer></script>
 </head>
+
 <body>
     <header>
-        <div className="header">
+        <div class="text-bg-success">
             <h1>Stanley's Pharmacy</h1>
             <div class="vertical-line"></div>
         </div>
@@ -18,7 +22,49 @@
         </nav>
 
     </header>
-    
-    <script src="https://kit.fontawesome.com/5bdf100d07.js" crossorigin="anonymous"></script>
+
+    <div class="container my-5 w-50 px-4 py-3 d-flex flex-column border border-dark">
+        <h2 class="text-left text-success mb-4">New User Registeration</h2>
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" style="width: 18rem" placeholder="First Name">
+            <input type="text" style="width: 18rem" placeholder="Last Name">
+        </div>
+        <input type="text" placeholder="Email Id" class="mb-3">
+        <div class="d-flex justify-content-between mb-3">
+            <input type="password" style="width: 18rem" placeholder="New Password">
+            <input type="password" style="width: 18rem" placeholder="Confirm Password">
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+            <div>
+                <input type="radio" class="form-check-input form-check-input-lg" name="gender" value="Male">
+                <label for="html" style="margin-right:38px">Male</label>
+                <input type="radio" class="form-check-input form-check-input-lg" name="gender" value="Female">
+                <label for="html">Female</label>
+            </div>
+            <input type="date" style="width: 18rem">
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" style="width: 18rem" placeholder="Contact No">
+            <select name="City" id="" placeholder="City" style="width: 18rem">
+                <option value="City">City</option>
+                <option value="Pune">Pune</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Kolhapur">Kolhapur</option>
+                <option value="Nashik">Nashik</option>
+                <option value="Solapur">Solapur</option>
+            </select>
+        </div>
+        <p class="mb-1 text-secondary">Health of Information</p>
+        <textarea name="" id="" cols="30" rows="3" class="mb-3"></textarea>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <input type="checkbox" class="form-check-input form-check-input-lg">
+            <p class="mb-0">ashhihi adipisicing elit. Maiores.Lorem ipsum dolor sit amet. m rem debitis quo?</p>
+        </div>
+        <button class="text-bg-success border-none outline-none align-self-end" style="width:260px">Save</button>
+    </div>
+
+    <script src="./bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
