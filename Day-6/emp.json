@@ -1,0 +1,18 @@
+{
+  "emps": [
+    {
+      "empId": "444454",
+      "empName": "Vaishali",
+      "empSal": "111",
+      "isMarried": true,
+      "id": 1
+    },
+    {
+      "empId": "898989",
+      "empName": "Srivastava",
+      "empSal": "7000",
+      "isMarried": true,
+      "id": 2
+    }
+  ]
+}
