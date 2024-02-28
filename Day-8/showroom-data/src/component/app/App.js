@@ -5,6 +5,7 @@ import Header from '../other/header';
 import Footer from '../other/footer';
 import Carousel from '../other/carousel';
 import Search from '../other/search';
+import Car from '../other/car';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <Carousel/>
       <Search />
+      <Car />
       <Footer />
     </div>
   );
