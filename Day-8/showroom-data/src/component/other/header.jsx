@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <div
       style={{ height: "8vh" }}
-      className="w-100 d-flex flex-row align-items-center justify-content-between bg-secondary-subtle position-sticky top-0"
+      className="z-3 w-100 d-flex flex-row align-items-center justify-content-between bg-secondary-subtle position-sticky top-0"
     >
       <ul className="list-group list-group-horizontal">
         <li className="list-group-item">
