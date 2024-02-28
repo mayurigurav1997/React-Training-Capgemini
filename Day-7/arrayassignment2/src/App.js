@@ -76,7 +76,7 @@ function App() {
       setEmpArr(newArray)
     } else if (choice === "5") {
       empArr.sort((a, b) => a.empName.localeCompare(b.empName))
-      setEmpArr(empArr)
+      setEmpArr(empArr.sort((a, b) => a.empName.localeCompare(b.empName)))
       console.log(empArr)
     }
   }
@@ -113,20 +113,20 @@ function App() {
         <li>Sort</li>
         {/* Add/Update/Search/Delete/Sort  */}
       </ol>
-      <div>
-        <span>Enter your choice:</span>
+      <div className="input-box">
+        <span >Enter your choice:</span>
         <input type="text" value={choice} onChange={handleChoice} />
       </div>
-      <div>
-        <span>Emp Id:</span>
+      <div className="input-box">
+        <span >Emp Id:</span>
         <input type="text" name="id" value={id} onChange={handleChange} />
       </div>
-      <div>
-        <span>Emp Name:</span>
+      <div className="input-box">
+        <span >Emp Name:</span>
         <input type="text" name="name" value={name} onChange={handleChange} />
       </div>
-      <div>
-        <span>Emp Salary:</span>
+      <div className="input-box">
+        <span >Emp Salary:</span>
         <input type="text" name="salary" value={salary} onChange={handleChange} />
       </div>
       <button onClick={handleClick}>Submit</button>
