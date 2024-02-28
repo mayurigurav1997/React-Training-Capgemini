@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 
 function App() {
-    const [numbers, setNumbers] = useState([]);
+    const [numbers, setNumbers] = useState([10,121,100]);
     const [choice, setChoice] = useState("");
     const [number, setNumber] = useState("");
     const [index, setIndex] = useState("");
