@@ -47,7 +47,7 @@ let TodoListComponent = () => {
       ],
     },
   ]);
-
+  console.log(todolist,"todolist")
   return (
     <>
       <CreateTodoComponent

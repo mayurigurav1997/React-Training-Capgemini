@@ -9,15 +9,15 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
     status: "",
     employees: [],
   });
-  const handleChange =(e)=>{
-    const {name,value} = e.target;
-    const empId = todolist.length +1
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const empId = todolist.length + 1;
     setFormData({
-        ...formData,
-        [name]: value,
-        id:empId
-    })
-  }
+      ...formData,
+      id: empId,
+      [name]: value,
+    });
+  };
 
   let create = (event) => {
     // TODO: Define function to create new task and save to tasklist
@@ -61,8 +61,8 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
 
           <div className="row m-2">
             <p className="fw-bold m-0">Select Employee(s)</p>
-            {emplist.map((item) => (
-              <div className="col-md-2">
+            {emplist.map((item, index) => (
+              <div className="col-md-2" key={index}>
                 <input
                   type="checkbox"
                   id={item.id}
@@ -79,22 +79,47 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
           <div className="row m-2">
             <div className="col-md-3">
               <p className="fw-bold m-0">Task title</p>
-              <input type="text" className="form-control" name="title" onChange={handleChange}/>
+              <input
+                type="text"
+                className="form-control"
+                name="title"
+                onChange={handleChange}
+              />
             </div>
 
             <div className="col-md-3">
               <p className="fw-bold m-0">Start Date</p>
-              <input type="date" className="form-control" name="startdate" onChange={handleChange}/>
+              <input
+                type="date"
+                className="form-control"
+                name="startdate"
+                onChange={handleChange}
+              />
             </div>
 
             <div className="col-md-3">
               <p className="fw-bold m-0">End Date</p>
-              <input type="date" className="form-control" name="enddate" onChange={handleChange}/>
+              <input
+                type="date"
+                className="form-control"
+                name="enddate"
+                onChange={handleChange}
+              />
             </div>
 
             <div className="col-md-3">
               <p className="fw-bold m-0">Status</p>
-              {status}
+              <select
+                className="form-select"
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+              >
+                <option value="-1">Select</option>
+                <option value="New">New</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
             </div>
           </div>
         </div>
@@ -141,15 +166,15 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
               </tr>
             </thead>
             <tbody>
-              {todolist.map((item) => (
-                <tr>
+              {todolist.map((item, index) => (
+                <tr key={index}>
                   <td>
                     {item.status == "New" ? (
-                      <i class="fa-solid fa-square text-danger"></i>
+                      <i className="fa-solid fa-square text-danger"></i>
                     ) : item.status == "In Progress" ? (
-                      <i class="fa-solid fa-square text-primary"></i>
+                      <i className="fa-solid fa-square text-primary"></i>
                     ) : (
-                      <i class="fa-solid fa-square text-success"></i>
+                      <i className="fa-solid fa-square text-success"></i>
                     )}
                   </td>
                   <td>{item.id}</td>
@@ -157,8 +182,8 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
                   <td>{item.startdate}</td>
                   <td>{item.enddate}</td>
                   <td>
-                    {item.employees.map((e) => (
-                      <span className="badge bg-dark mx-2">{e.empname}</span>
+                    {item.employees.map((e,i) => (
+                      <span key={i} className="badge bg-dark mx-2">{e.empname}</span>
                     ))}
                   </td>
                   <td>
@@ -180,7 +205,7 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
       <div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
