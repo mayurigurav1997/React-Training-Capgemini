@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import carsData from "../../carsData.js";
 
-const Car = () => {
-  console.log(carsData);
+const Car = ({ dropdown }) => {
+  const [cars, setCars] = useState(carsData);
+  // // console.log(carsData);
+  useEffect(() => {
+    if (dropdown) {
+      const filteredCars = carsData?.filter((car) => dropdown === car.type);
+      console.log(filteredCars);
+      setCars(filteredCars);
+    }
+  }, [dropdown]);
+
   return (
     <div className="mx-5 d-flex flex-wrap mb-4 border border-light-subtle">
-      {carsData.map((car, carIndex) => {
+      {cars.map((car, carIndex) => {
         return (
           <div
+            key={carIndex}
             className="card mx-3 my-3 d-flex flex-column"
             style={{ width: "16rem", height: "30rem" }}
           >
             <div className="d-flex justify-content-between px-1 my-1">
               <span>{car.date}</span>
-              <a href="#" class="card-link">
+              <a href="#" className="card-link">
                 Reviews {car.reviews}
               </a>
             </div>
