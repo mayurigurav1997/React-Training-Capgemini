@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
+  const [filterList, setFilterList] = useState(todolist);
   const [formData, setFormData] = useState({
     id: "",
     title: "",
@@ -19,10 +20,10 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
     });
   };
   const handleCheckbox = (e) => {
-    console.log(e.target.name,"name")
-    const name = e.target.name
-    const nameObj = emplist.filter(emp => name === emp.empname)
-    console.log(nameObj)
+    console.log(e.target.name, "name");
+    const name = e.target.name;
+    const nameObj = emplist.filter((emp) => name === emp.empname);
+    console.log(nameObj);
     if (e.target.checked) {
       setFormData({
         ...formData,
@@ -34,9 +35,14 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
   let create = (event) => {
     // TODO: Define function to create new task and save to tasklist
     event.preventDefault();
-    setToDoList([...todolist, formData]);
+    setToDoList((prev) => [...prev, formData]);
+    setFilterList((prev) => [...prev, formData]);
   };
+  useEffect(() => {
+    // setCopyTodo([...todolist])
 
+    console.log(filterList, "filterList");
+  }, [filterList]);
   let changeTodoStatus = (event) => {
     // TODO: Define function to change status for selected Task
   };
@@ -49,8 +55,21 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
     // TODO: Define function to refresh todo list table.
   };
 
+  const [seachTaskId, setSearchTaskId] = useState("");
+
   let searchItem = (event) => {
     // TODO: Define function to search item in table either by id or by title
+    const { value } = event.target;
+    console.log(value);
+    setSearchTaskId(value);
+    if (value) {
+      const filtered = todolist.filter(
+        (todo) => todo?.title?.includes(value) || `${todo.id}` == value
+      );
+      setFilterList(filtered);
+    } else {
+        setFilterList([...todolist]);
+    }
   };
 
   let filterByStatus = (event) => {
@@ -153,6 +172,8 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
                 type="search"
                 className="form-control"
                 placeholder="taskid/title"
+                value={seachTaskId}
+                onChange={searchItem}
               />
             </div>
 
@@ -180,7 +201,7 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
               </tr>
             </thead>
             <tbody>
-              {todolist.map((item, index) => (
+              {filterList.map((item, index) => (
                 <tr key={index}>
                   <td>
                     {item.status == "New" ? (
