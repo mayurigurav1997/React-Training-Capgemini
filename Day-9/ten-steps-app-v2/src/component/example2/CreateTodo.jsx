@@ -68,12 +68,24 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
       );
       setFilterList(filtered);
     } else {
-        setFilterList([...todolist]);
+      setFilterList([...todolist]);
     }
   };
 
+  const[searchStatus, setSearchStatus] = useState("")
   let filterByStatus = (event) => {
     // TODO: Define function to filter table rows matching to selected status
+    const { value } = event.target;
+    console.log(value);
+    setSearchStatus(value);
+    if (value) {
+      const filtered = todolist.filter(
+        (todo) => todo.status === value
+      );
+      setFilterList(filtered);
+    } else {
+      setFilterList([...todolist]);
+    }
   };
 
   let filterByEmployee = (event) => {
@@ -177,7 +189,19 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
               />
             </div>
 
-            <div className="col-md-3">{status}</div>
+            <div className="col-md-3">
+              {" "}
+              <>
+                {
+                  <select className="form-select" value={searchStatus} onChange={filterByStatus}>
+                    <option value="">Select</option>
+                    <option value="New">New</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                }
+              </>
+            </div>
 
             <div className="col-md-3">
               <select className="form-select">
