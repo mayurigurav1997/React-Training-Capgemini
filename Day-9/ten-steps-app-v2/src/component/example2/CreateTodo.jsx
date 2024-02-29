@@ -72,24 +72,33 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
     }
   };
 
-  const[searchStatus, setSearchStatus] = useState("")
+  const [searchStatus, setSearchStatus] = useState("");
   let filterByStatus = (event) => {
     // TODO: Define function to filter table rows matching to selected status
     const { value } = event.target;
     console.log(value);
     setSearchStatus(value);
     if (value) {
-      const filtered = todolist.filter(
-        (todo) => todo.status === value
-      );
+      const filtered = todolist.filter((todo) => todo.status === value);
       setFilterList(filtered);
     } else {
       setFilterList([...todolist]);
     }
   };
 
+  const [searchEmployee, setSearchEmployee] = useState("");
   let filterByEmployee = (event) => {
     // TODO: Define function to filter table rows matching to selected employee
+    const { value } = event.target;
+    setSearchEmployee(value);
+    if (value) {
+      const filtered = todolist.filter((todo) =>
+        todo.employees.find((emp) => emp.empname === value)
+      );
+      setFilterList(filtered);
+    } else {
+      setFilterList([...todolist]);
+    }
   };
 
   return (
@@ -193,7 +202,11 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
               {" "}
               <>
                 {
-                  <select className="form-select" value={searchStatus} onChange={filterByStatus}>
+                  <select
+                    className="form-select"
+                    value={searchStatus}
+                    onChange={filterByStatus}
+                  >
                     <option value="">Select</option>
                     <option value="New">New</option>
                     <option value="In Progress">In Progress</option>
@@ -204,10 +217,16 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
             </div>
 
             <div className="col-md-3">
-              <select className="form-select">
-                <option key="-1">Select</option>
+              <select
+                className="form-select"
+                value={searchEmployee}
+                onChange={filterByEmployee}
+              >
+                <option key="" value="">Select</option>
                 {emplist.map((item) => (
-                  <option key={item.id}>{item.empname}</option>
+                  <option key={item.id} value={item.name}>
+                    {item.empname}
+                  </option>
                 ))}
               </select>
             </div>
