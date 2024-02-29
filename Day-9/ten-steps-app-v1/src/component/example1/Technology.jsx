@@ -9,18 +9,19 @@ let TechnologyComponent = ({ formData, setFormData }) => {
   const handleCheckbox = (e) => {
     const checkboxValue = e.target.name;
     if (e.target.checked) {
-      setFormData({
-        ...formData,
-        technologies: [...formData.technologies,checkboxValue],
-      });
+      setFormData((prev)=>({
+        ...prev,
+        technologies: [...prev.technologies,checkboxValue],
+      }));
     }
     else{
-      setFormData({
-        ...formData,
-        technologies: formData.technologies.filter(tech => tech!== checkboxValue ),
-      })
+      setFormData((prev)=>({
+        ...prev,
+        technologies: prev.technologies.filter(tech => tech!== checkboxValue ),
+      }))
     }
   };
+  console.log("tecgh triggered")
 
   return (
     <div className="my-1">

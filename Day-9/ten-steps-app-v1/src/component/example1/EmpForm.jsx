@@ -31,7 +31,7 @@ let EmpFormComponent = ({ employeesData, setEmployeesData }) => {
       lastname: "",
       joindate: "",
       department: "",
-      technologies: [],
+      technologies: [], // Resetting technologies array
       projects: 0,
     });
 
