@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-let CreateTodoComponent = ({ emplist, status, todolist }) => {
+let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
   const [formData, setFormData] = useState({
     id: "",
     title: "",
@@ -11,11 +11,18 @@ let CreateTodoComponent = ({ emplist, status, todolist }) => {
   });
   const handleChange =(e)=>{
     const {name,value} = e.target;
-    [name]=value
+    const empId = todolist.length +1
+    setFormData({
+        ...formData,
+        [name]: value,
+        id:empId
+    })
   }
 
   let create = (event) => {
     // TODO: Define function to create new task and save to tasklist
+    event.preventDefault();
+    setToDoList([...todolist, formData]);
   };
 
   let changeTodoStatus = (event) => {
@@ -77,12 +84,12 @@ let CreateTodoComponent = ({ emplist, status, todolist }) => {
 
             <div className="col-md-3">
               <p className="fw-bold m-0">Start Date</p>
-              <input type="date" className="form-control" />
+              <input type="date" className="form-control" name="startdate" onChange={handleChange}/>
             </div>
 
             <div className="col-md-3">
               <p className="fw-bold m-0">End Date</p>
-              <input type="date" className="form-control" />
+              <input type="date" className="form-control" name="enddate" onChange={handleChange}/>
             </div>
 
             <div className="col-md-3">
