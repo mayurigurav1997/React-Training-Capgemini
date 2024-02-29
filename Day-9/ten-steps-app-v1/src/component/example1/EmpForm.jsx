@@ -35,13 +35,13 @@ let EmpFormComponent = () => {
             <input type="date" className="form-control" />
           </div>
           <div className="col-md-6">
-            {/* render department component at this place */}
+            <DepartmentComponent />
           </div>
         </div>
         <div className="row g-1 my-1">
           <div className="col-md-12">
             <p className="my-1 text-center">Select Technology</p>
-            {/* render technology component at this place */}
+            <TechnologyComponent />
           </div>
         </div>
         <div className="row g-1 my-1">
