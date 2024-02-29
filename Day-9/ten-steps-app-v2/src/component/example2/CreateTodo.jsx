@@ -18,6 +18,18 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
       [name]: value,
     });
   };
+  const handleCheckbox = (e) => {
+    console.log(e.target.name,"name")
+    const name = e.target.name
+    const nameObj = emplist.filter(emp => name === emp.empname)
+    console.log(nameObj)
+    if (e.target.checked) {
+      setFormData({
+        ...formData,
+        employees: [...formData.employees, nameObj[0]],
+      });
+    }
+  };
 
   let create = (event) => {
     // TODO: Define function to create new task and save to tasklist
@@ -68,6 +80,8 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
                   id={item.id}
                   value={item.empname}
                   className="form-check-input"
+                  name={item.empname}
+                  onChange={handleCheckbox}
                 />
                 <label className="mx-2" htmlFor={item.id}>
                   {item.empname}
@@ -182,8 +196,10 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
                   <td>{item.startdate}</td>
                   <td>{item.enddate}</td>
                   <td>
-                    {item.employees.map((e,i) => (
-                      <span key={i} className="badge bg-dark mx-2">{e.empname}</span>
+                    {item.employees.map((e, i) => (
+                      <span key={i} className="badge bg-dark mx-2">
+                        {e.empname}
+                      </span>
                     ))}
                   </td>
                   <td>
