@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Search = ({ dropdown, setDropdown }) => {
+const Search = ({ dropdown, setDropdown, setSearchValue }) => {
   let cartypes = [
     { id: "81", category: "Hatchback" },
     { id: "82", category: "Sedan" },
@@ -13,6 +13,13 @@ const Search = ({ dropdown, setDropdown }) => {
   const handleDropdown = (category) => {
     setDropdown(category);
   };
+  const [inputSearch, setInputSearch] = useState("")
+  const handleSearh=(e)=>{
+    setInputSearch(e.target.value)
+  }
+  const handleSearchCilck=()=>{
+    setSearchValue(inputSearch)
+  }
 
   return (
     <div
@@ -47,9 +54,11 @@ const Search = ({ dropdown, setDropdown }) => {
           type="text"
           placeholder="company/model"
           className="form-control"
+          value={inputSearch}
+          onChange={handleSearh}
         />
       </div>
-      <button className="btn btn-sm btn-dark mx-3">Search</button>
+      <button className="btn btn-sm btn-dark mx-3" onClick={handleSearchCilck}>Search</button>
     </div>
   );
 };

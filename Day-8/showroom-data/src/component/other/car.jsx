@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import carsData from "../../carsData.js";
 
-const Car = ({ dropdown }) => {
+const Car = ({ dropdown, searchValue }) => {
   const [cars, setCars] = useState(carsData);
   // // console.log(carsData);
   useEffect(() => {
+    if (searchValue) {
+      const filteredCars = carsData?.filter((car) => {
+        const carNames = car.carname.toLowerCase().split(" ");
+        const lowerSearchValue = searchValue.toLowerCase();
+        return carNames.includes(lowerSearchValue);
+      });
+      console.log(filteredCars);
+      setCars(filteredCars);
+    }
     if (dropdown) {
       const filteredCars = carsData?.filter((car) => dropdown === car.type);
       console.log(filteredCars);
       setCars(filteredCars);
     }
-  }, [dropdown]);
+  }, [dropdown, searchValue]);
 
   return (
     <div className="mx-5 d-flex flex-wrap mb-4 border border-light-subtle">

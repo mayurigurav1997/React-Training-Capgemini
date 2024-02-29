@@ -10,13 +10,14 @@ import { useState } from 'react';
 
 function App() {
   const [dropdown, setDropdown] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
 
   return (
     <div className="App">
       <Header />
       <Carousel/>
-      <Search dropdown={dropdown} setDropdown={setDropdown}/>
-      <Car dropdown={dropdown}/>
+      <Search dropdown={dropdown} setDropdown={setDropdown} setSearchValue={setSearchValue}/>
+      <Car dropdown={dropdown} searchValue={searchValue}/>
       <Footer />
     </div>
   );
