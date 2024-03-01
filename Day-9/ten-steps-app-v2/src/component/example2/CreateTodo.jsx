@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
-  const [filterList, setFilterList] = useState(todolist);
+    const localtodo=JSON.parse(localStorage.getItem("localtodo"))
+  const [filterList, setFilterList] = useState(localtodo);
   const [formData, setFormData] = useState({
     id: "",
     title: "",
@@ -10,20 +11,19 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
     status: "",
     employees: [],
   });
+  const [idEmp, setIdEmp] = useState(todolist.length)
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const empId = todolist.length + 1;
     setFormData({
       ...formData,
-      id: empId,
+      id: idEmp +1,
       [name]: value,
     });
   };
   const handleCheckbox = (e) => {
-    console.log(e.target.name, "name");
     const name = e.target.name;
     const nameObj = emplist.filter((emp) => name === emp.empname);
-    console.log(nameObj);
+
     if (e.target.checked) {
       setFormData({
         ...formData,
@@ -37,38 +37,66 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
     event.preventDefault();
     setToDoList((prev) => [...prev, formData]);
     setFilterList((prev) => [...prev, formData]);
+    setIdEmp(idEmp+1)
+    setFormData({
+      id: "",
+      title: "",
+      startdate: "",
+      enddate: "",
+      status: "",
+      employees: [],
+    });
   };
+  useEffect(()=>{
+    localStorage.setItem("localtodo", JSON.stringify(todolist));
+  },[todolist])
   useEffect(() => {
-    // setCopyTodo([...todolist])
-
     console.log(filterList, "filterList");
+    console.log(todolist, "todolist");
   }, [filterList]);
+
+  const [id, setId] = useState("");
+  const handleEditButton = (item) => {
+    setId(item.id);
+  };
+
+  const [dropdownChange, setDropdownChange] = useState("");
   let changeTodoStatus = (event) => {
     // TODO: Define function to change status for selected Task
+    const { value } = event.target;
+    setDropdownChange(value);
+  };
+  const onSave = () => {
+    if (dropdownChange) {
+        const localtodo=JSON.parse(localStorage.getItem("localtodo"))
+      let transformed = localtodo.map((todo) =>
+        todo.id === Number(id) ? { ...todo, status: dropdownChange } : todo
+      );
+      setFilterList(transformed);
+      setToDoList(transformed)
+    }
   };
 
   let removeTodoItem = (event) => {
     // TODO: Define function to delete selected task from todo list.
-  };
-
-  let refreshTodoTable = (event) => {
-    // TODO: Define function to refresh todo list table.
+    const filtered = todolist.filter((todo) => todo.id !== id);
+    setFilterList(filtered);
+    setToDoList(filtered);
   };
 
   const [seachTaskId, setSearchTaskId] = useState("");
-
   let searchItem = (event) => {
     // TODO: Define function to search item in table either by id or by title
     const { value } = event.target;
-    console.log(value);
     setSearchTaskId(value);
+    const localtodo=JSON.parse(localStorage.getItem("localtodo"))
     if (value) {
-      const filtered = todolist.filter(
+      const filtered = localtodo.filter(
         (todo) => todo?.title?.includes(value) || `${todo.id}` == value
       );
       setFilterList(filtered);
     } else {
-      setFilterList([...todolist]);
+      setFilterList(localtodo);
     }
   };
 
@@ -76,13 +104,13 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
   let filterByStatus = (event) => {
     // TODO: Define function to filter table rows matching to selected status
     const { value } = event.target;
-    console.log(value);
     setSearchStatus(value);
+    const localtodo=JSON.parse(localStorage.getItem("localtodo"))
     if (value) {
-      const filtered = todolist.filter((todo) => todo.status === value);
+      const filtered = localtodo.filter((todo) => todo.status === value);
       setFilterList(filtered);
     } else {
-      setFilterList([...todolist]);
+      setFilterList(localtodo);
     }
   };
 
@@ -91,13 +119,15 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
     // TODO: Define function to filter table rows matching to selected employee
     const { value } = event.target;
     setSearchEmployee(value);
+    const localtodo=JSON.parse(localStorage.getItem("localtodo"))
+    console.log(localtodo,"localtodo")
     if (value) {
-      const filtered = todolist.filter((todo) =>
+      const filtered = localtodo.filter((todo) =>
         todo.employees.find((emp) => emp.empname === value)
       );
       setFilterList(filtered);
     } else {
-      setFilterList([...todolist]);
+      setFilterList(localtodo);
     }
   };
 
@@ -222,7 +252,9 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
                 value={searchEmployee}
                 onChange={filterByEmployee}
               >
-                <option key="" value="">Select</option>
+                <option key="" value="">
+                  Select
+                </option>
                 {emplist.map((item) => (
                   <option key={item.id} value={item.name}>
                     {item.empname}
@@ -267,13 +299,14 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
                     ))}
                   </td>
                   <td>
-                    <a
-                      href="#"
+                    <button
+                      //   href="#"
+                      onClick={() => handleEditButton(item)}
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal"
                     >
                       <i className="fa-solid fa-pen-to-square"></i>
-                    </a>
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -293,7 +326,7 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
-                Selected Task Id : null
+                Selected Task Id : {id}
               </h1>
               <button
                 type="button"
@@ -308,18 +341,36 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
                   <p className="fw-bold text-secondary"></p>
 
                   <p className="fw-bold">Change Status</p>
-                  {status}
+                  <>
+                    {
+                      <select
+                        className="form-select"
+                        value={dropdownChange}
+                        onChange={changeTodoStatus}
+                      >
+                        <option value="">Select</option>
+                        <option value="New">New</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    }
+                  </>
                 </div>
               </div>
 
               <div className="row mt-4">
                 <div className="col-md-12">
-                  <button className="btn btn-success" data-bs-dismiss="modal">
+                  <button
+                    className="btn btn-success"
+                    data-bs-dismiss="modal"
+                    onClick={onSave}
+                  >
                     Save Changes
                   </button>
                   <button
                     className="btn btn-danger float-end"
                     data-bs-dismiss="modal"
+                    onClick={removeTodoItem}
                   >
                     Delete this task
                   </button>
