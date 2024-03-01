@@ -32,23 +32,37 @@ let CreateTodoComponent = ({ emplist, status, todolist, setToDoList }) => {
     }
   };
 
+  const [resetFormTrigger, setResetFormTrigger] = useState(false);
+
+const resetFormData = () => {
+  setFormData({
+    id: "",
+    title: "",
+    startdate: "",
+    enddate: "",
+    status: "",
+    employees: [],
+  });
+  // Set the trigger to true to force re-render
+  setResetFormTrigger(true);
+};
+
+// Reset the trigger after re-render
+useEffect(() => {
+  setResetFormTrigger(false);
+}, [resetFormTrigger]);
   let create = (event) => {
     // TODO: Define function to create new task and save to tasklist
     event.preventDefault();
     setToDoList((prev) => [...prev, formData]);
     setFilterList((prev) => [...prev, formData]);
     setIdEmp(idEmp+1)
-    setFormData({
-      id: "",
-      title: "",
-      startdate: "",
-      enddate: "",
-      status: "",
-      employees: [],
-    });
+    
+    resetFormData();
   };
   useEffect(()=>{
     localStorage.setItem("localtodo", JSON.stringify(todolist));
+    
   },[todolist])
   useEffect(() => {
     console.log(filterList, "filterList");
