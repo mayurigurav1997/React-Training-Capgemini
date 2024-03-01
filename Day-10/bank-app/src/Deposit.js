@@ -6,10 +6,11 @@ export let Deposit = () => {
     console.log(selected_account,"inside the deposite")
 
     let deposit_click = () => {
-        const amount = Number(prompt("Enter Deposit Amount :"));
+        const de_amount = Number(prompt("Enter Deposit Amount :"));
         const newDatabase = database.map(item => item.account_number==selected_account.account_number ?{
             ...item,
-            transactions:[...item.transactions,{ type: "DEPOSIT", amount: `INR ${amount}`, }]
+            balance:`INR ${Number(item.balance.split(" ")[1])+ de_amount}`,
+            transactions:[...item.transactions,{ type: "DEPOSIT", amount: `INR ${de_amount}`, }]
         }:item)
         console.log(newDatabase)
         modifyRecords([...newDatabase]);

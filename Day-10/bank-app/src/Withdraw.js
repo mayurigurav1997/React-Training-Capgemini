@@ -10,6 +10,7 @@ export let Withdraw = () => {
         //TODO: append withdraw transaction in database.transactions
         const newDatabase = database.map(item => item.account_number==selected_account.account_number ?{
             ...item,
+            balance:`INR ${item.balance.split(" ")[1] - amount}`,
             transactions:[...item.transactions,{ type: "WITHDRAW", amount: `INR ${amount}`, }]
         }:item)
         console.log(newDatabase)
