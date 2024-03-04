@@ -13,7 +13,6 @@ let SearchPackageComponent = () => {
         con.packageName.toLowerCase().includes(searchkey.toLowerCase())
       );
       setPackageList(updatedContext);
-      //   console.log(updatedContext);
     } else {
       setPackageList(holidayPackageList);
     }
@@ -24,14 +23,37 @@ let SearchPackageComponent = () => {
     setPackageFrom(e.target.value);
     if (e.target.value) {
       const searchkey = e.target.value;
-      console.log(searchkey)
-      const updatedContext = packageList.filter(
-        (con) => {
-            return parseFloat(con.payblePrice.substring(1).replace(/,/g, '')) > parseFloat(searchkey)
-        }
-      );
+      const updatedContext = packageList.filter((con) => {
+        return (
+          parseFloat(con.payblePrice.substring(1).replace(/,/g, "")) >
+          parseFloat(searchkey)
+        );
+      });
       setPackageList(updatedContext);
-      //   console.log(updatedContext);
+    } else {
+      setPackageList(holidayPackageList);
+    }
+  };
+
+  const [packageTo, setPackageTo] = useState("");
+  const handlePackageTo = (e) => {
+    setPackageTo(e.target.value);
+    if (e.target.value) {
+      const searchkey = e.target.value;
+      const updatedContext = holidayPackageList.filter((con) => {
+        // console.log(
+        //   parseFloat(con.payblePrice.substring(1).replace(/,/g, "")),
+        //   parseFloat(searchkey),
+        //   "price to"
+        // );
+        const payablePrice = parseFloat(
+          con.payblePrice.substring(1).replace(/,/g, "")
+        );
+        const from = parseFloat(searchkey) > packageFrom;
+        const to = payablePrice < parseFloat(searchkey);
+        return packageFrom ? from && to : to;
+      });
+      setPackageList(updatedContext);
     } else {
       setPackageList(holidayPackageList);
     }
@@ -62,6 +84,8 @@ let SearchPackageComponent = () => {
         <div className="col-md-3">
           <input
             type="search"
+            value={packageTo}
+            onChange={handlePackageTo}
             placeholder="Price to"
             className="form-control"
           />
