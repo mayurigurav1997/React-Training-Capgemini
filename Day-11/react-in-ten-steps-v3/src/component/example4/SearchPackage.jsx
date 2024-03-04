@@ -2,71 +2,58 @@ import { useContext, useState } from "react";
 import HolidayContext from "./HolidayContext";
 
 let SearchPackageComponent = () => {
-  let { packageList, setPackageList, holidayPackageList } =
+  const { packageList, setPackageList, holidayPackageList } =
     useContext(HolidayContext);
-  let [packageTitle, setPackageTitle] = useState("");
-  const handlePackage = (e) => {
-    setPackageTitle(e.target.value);
-    if (e.target.value) {
-      const searchkey = e.target.value;
-      const updatedContext = packageList.filter((con) =>
-        con.packageName.toLowerCase().includes(searchkey.toLowerCase())
-      );
+  const [searchCriteria, setSearchCriteria] = useState({
+    title: "",
+    from: "",
+    to: "",
+  });
+
+  const handleSearch = (e) => {
+    const { name, value } = e.target;
+    setSearchCriteria({ ...searchCriteria, [name]: value });
+
+    if (value) {
+      const updatedContext = filterPackageList(name, value);
       setPackageList(updatedContext);
     } else {
       setPackageList(holidayPackageList);
     }
   };
 
-  const [packageFrom, setPackageFrom] = useState("");
-  const handlePackageFrom = (e) => {
-    setPackageFrom(e.target.value);
-    if (e.target.value) {
-      const searchkey = e.target.value;
-      const updatedContext = packageList.filter((con) => {
+  const filterPackageList = (name, value) => {
+    return holidayPackageList.filter((con) => {
+      if (name === "title") {
+        return con.packageName.toLowerCase().includes(value.toLowerCase());
+      } else if (name === "from") {
         return (
           parseFloat(con.payblePrice.substring(1).replace(/,/g, "")) >
-          parseFloat(searchkey)
+          parseFloat(value)
         );
-      });
-      setPackageList(updatedContext);
-    } else {
-      setPackageList(holidayPackageList);
-    }
-  };
-
-  const [packageTo, setPackageTo] = useState("");
-  const handlePackageTo = (e) => {
-    setPackageTo(e.target.value);
-    if (e.target.value) {
-      const searchkey = e.target.value;
-      const updatedContext = holidayPackageList.filter((con) => {
-        // console.log(
-        //   parseFloat(con.payblePrice.substring(1).replace(/,/g, "")),
-        //   parseFloat(searchkey),
-        //   "price to"
-        // );
+      } else if (name === "to") {
         const payablePrice = parseFloat(
           con.payblePrice.substring(1).replace(/,/g, "")
         );
-        const from = parseFloat(searchkey) > packageFrom;
-        const to = payablePrice < parseFloat(searchkey);
-        return packageFrom ? from && to : to;
-      });
-      setPackageList(updatedContext);
-    } else {
-      setPackageList(holidayPackageList);
-    }
+        const from = parseFloat(value) > parseFloat(searchCriteria.from);
+        console.log(searchCriteria.from,"from")
+        const to = payablePrice < parseFloat(value);
+        return searchCriteria.from ? from && to : to;
+      }
+      return true;
+    });
   };
+
   return (
     <div className="card shadow m-3 p-2">
       <div className="row my-2 mx-1">
         <div className="col-md-6">
           <input
             type="search"
-            value={packageTitle}
-            onChange={handlePackage}
+            value={searchCriteria.title}
+            onChange={handleSearch}
             placeholder="search offer"
+            name="title"
             className="form-control"
           />
         </div>
@@ -74,9 +61,10 @@ let SearchPackageComponent = () => {
         <div className="col-md-3">
           <input
             type="search"
-            value={packageFrom}
-            onChange={handlePackageFrom}
+            value={searchCriteria.from}
+            onChange={handleSearch}
             placeholder="Price from"
+            name="from"
             className="form-control"
           />
         </div>
@@ -84,9 +72,10 @@ let SearchPackageComponent = () => {
         <div className="col-md-3">
           <input
             type="search"
-            value={packageTo}
-            onChange={handlePackageTo}
+            value={searchCriteria.to}
+            onChange={handleSearch}
             placeholder="Price to"
+            name="to"
             className="form-control"
           />
         </div>
