@@ -4,7 +4,8 @@ import {createStore, combineReducers} from 'redux';
 const actionTypes = {
     INCREASE_CNT:"INCREASE_CNT",
     DECREASE_CNT:"DECREASE_CNT",
-    MODIFY_DEFAULT:"MODIFY_DEFAULT"
+    MODIFY_DEFAULT:"MODIFY_DEFAULT",
+    RESET_CNT:"RESET_CNT"
 }
 
 
@@ -28,6 +29,9 @@ let counterReducer = (state = initial_state, action) => {
     else if(type=="MODIFY_DEFAULT")
     {
         return {...state, default_id:payload};
+    }else if(type=="RESET_CNT")
+    {
+        return {value:0, default_id:1};
     }
 
     

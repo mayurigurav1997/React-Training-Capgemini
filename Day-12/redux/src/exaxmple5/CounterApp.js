@@ -15,6 +15,10 @@ let CounterApp = () => {
     let decrease_click = () => {
         dispatch({type:"DECREASE_CNT", payload:null});
     }
+    let reset_click = () => {
+        dispatch({type:"RESET_CNT", payload:null});
+    }
+    
 
     let read = (event) => {
         setValue(Number(event.target.value));
@@ -38,6 +42,7 @@ let CounterApp = () => {
                 <div className="card-footer">
                     <button className="btn btn-sm btn-secondary mx-2 my-1" onClick={increase_click}>Increase</button>
                     <button className="btn btn-sm btn-secondary mx-2 my-1" onClick={decrease_click}>Decrease</button>
+                    <button className="btn btn-sm btn-secondary mx-2 my-1" onClick={reset_click}>Reset</button>
                 </div>
             </div>
         </div>
