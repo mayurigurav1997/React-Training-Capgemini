@@ -21,38 +21,43 @@ let LoginForm = () => {
 
     let login_click = () => {
 
-        dispatch({type:"STATUS_CHANGE", payload:null});
+        dispatch({ type: "STATUS_CHANGE", payload: null });
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
             let pobj = handleLoginRequest(state.fields.email);
 
             pobj.then(response => {
                 console.log(JSON.stringify(response, null, 3));
-    
-                const [user] = response.data;
-    
-                if (user.password === state.fields.password) {
-                    dispatch({ type: "LOGIN_SUCCESS", payload: user });
-                    alert("Login Success");
-                    sessionStorage.setItem("token", user.token);
+                if (response.data) {
+                    const [user] = response?.data;
+                    console.log(user, "insid ethe user")
+                    if (user?.password === state.fields.password) {
+                        dispatch({ type: "LOGIN_SUCCESS", payload: user });
+                        alert("Login Success");
+                        sessionStorage.setItem("token", user.token);
+                    }
+                    else {
+                        alert("Invalid Credentials");
+                    }
                 }
                 else {
-                    alert("Invalid Credentials");
+                    alert("Please enter the correct information")
                 }
-    
+
             })
-    
+
             pobj.then(error => {
                 console.log(JSON.stringify(error, null, 3));
+                alert("Please enter the correct information")
             });
 
-            dispatch({type:"STATUS_CHANGE", payload:null});
+            dispatch({ type: "STATUS_CHANGE", payload: null });
 
 
         }, 3000);
 
-       
+
     }
     return (
         <div className="justify-content-center mt-5 p-3 d-flex">
@@ -67,10 +72,10 @@ let LoginForm = () => {
                 </div>
 
                 <div className="card-fotter">
-                    <button  disabled={!state.status} className="btn btn-secondary fw-bold m-3 float-end" onClick={login_click}>
+                    <button disabled={!state.status} className="btn btn-secondary fw-bold m-3 float-end" onClick={login_click}>
                         <span hidden={!state.status}>login</span>
-                        <div class="spinner-border" role="status" hidden={state.status}>
-                            <span class="visually-hidden">Loading...</span>
+                        <div className="spinner-border" role="status" hidden={state.status}>
+                            <span className="visually-hidden">Loading...</span>
                         </div>
                     </button>
                 </div>
