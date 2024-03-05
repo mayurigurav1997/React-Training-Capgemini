@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-let handleLoginRequest = (data) => {
-    axios.get();
+let handleLoginRequest = (email) => {
+    return axios.get("http://localhost:3300/users?email="+email);
 }
 
-export default handleLoginRequest;
+export { 
+    handleLoginRequest 
+};
