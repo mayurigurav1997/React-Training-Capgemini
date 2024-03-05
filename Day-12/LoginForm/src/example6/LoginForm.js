@@ -2,63 +2,43 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLoginRequest } from "../service/LoginService";
 
-
-let LoginForm = () => {
-
+const LoginForm = () => {
     const dispatch = useDispatch();
     const state = useSelector(state => state.login);
+    const [isLoading, setIsLoading] = useState(false);
 
-    let read_field = (event) => {
+    const readField = (event) => {
         const { name, value } = event.target;
+        dispatch({ type: "READ", payload: { name, value } });
+    };
 
-        if (value == "") {
-
-        }
-        else {
-            dispatch({ type: "READ", payload: { name: name, value: value } });
-        }
-    }
-
-    let login_click = () => {
-
+    const loginClick = async () => {
+        setIsLoading(true);
         dispatch({ type: "STATUS_CHANGE", payload: null });
 
-        setTimeout(() => {
-
-            let pobj = handleLoginRequest(state.fields.email);
-
-            pobj.then(response => {
-                console.log(JSON.stringify(response, null, 3));
-                if (response.data) {
-                    const [user] = response?.data;
-                    console.log(user, "insid ethe user")
-                    if (user?.password === state.fields.password) {
-                        dispatch({ type: "LOGIN_SUCCESS", payload: user });
-                        alert("Login Success");
-                        sessionStorage.setItem("token", user.token);
-                    }
-                    else {
-                        alert("Invalid Credentials");
-                    }
+        try {
+            const response = await handleLoginRequest(state.fields.email);
+            if (response?.data?.length>0) {
+                const [user] = response.data;
+                if (user?.password === state.fields.password) {
+                    dispatch({ type: "LOGIN_SUCCESS", payload: user });
+                    alert("Login Success");
+                    sessionStorage.setItem("token", user.token);
+                } else {
+                    alert("Invalid Credentials");
                 }
-                else {
-                    alert("Please enter the correct information")
-                }
+            } else {
+                alert("Please enter the correct information");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Please enter the correct info");
+        }
 
-            })
+        setIsLoading(false);
+        dispatch({ type: "STATUS_CHANGE", payload: null });
+    };
 
-            pobj.then(error => {
-                console.log(JSON.stringify(error, null, 3));
-                alert("Please enter the correct information")
-            });
-
-            dispatch({ type: "STATUS_CHANGE", payload: null });
-
-
-        }, 3000);
-
-
-    }
     return (
         <div className="justify-content-center mt-5 p-3 d-flex">
             <div className="card shadow m-4" style={{ width: "300px" }}>
@@ -67,21 +47,20 @@ let LoginForm = () => {
                 </div>
                 <div className="card-body">
                     <pre>{JSON.stringify(state, null, 3)}</pre>
-                    <input type="email" className="form-control my-2" placeholder="email*" name="email" onChange={read_field} />
-                    <input type="password" className="form-control my-2" placeholder="password*" name="password" onChange={read_field} />
+                    <input type="email" className="form-control my-2" placeholder="email*" name="email" onChange={readField} />
+                    <input type="password" className="form-control my-2" placeholder="password*" name="password" onChange={readField} />
                 </div>
-
-                <div className="card-fotter">
-                    <button disabled={!state.status} className="btn btn-secondary fw-bold m-3 float-end" onClick={login_click}>
-                        <span hidden={!state.status}>login</span>
-                        <div className="spinner-border" role="status" hidden={state.status}>
+                <div className="card-footer">
+                    <button disabled={isLoading} className="btn btn-secondary fw-bold m-3 float-end" onClick={loginClick}>
+                        <span hidden={isLoading}>Login</span>
+                        <div className="spinner-border" role="status" hidden={!isLoading}>
                             <span className="visually-hidden">Loading...</span>
                         </div>
                     </button>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default LoginForm;
