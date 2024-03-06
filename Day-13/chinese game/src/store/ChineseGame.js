@@ -10,16 +10,20 @@ const initialState = {
     status: true
 }
 
-let chineseGameReducer = (state=initialState, action) => {
-    const {type, payload} = action;
+let chineseGameReducer = (state = initialState, action) => {
+    const { type, payload } = action;
 
-    if(type=="READ")
-    {
-        return {...state, [payload.name]:payload.value};
-    }else if(type=="EDIT_RESPONSE"){
-        const countRabbit= ((state.legs-(state.heads*2))/2)
-        const countChicken = state.heads-countRabbit
-        return {...state,response:{rabbit: countRabbit, chicken:countChicken }}
+    if (type == "READ") {
+        return { ...state, [payload.name]: payload.value };
+    } else if (type == "EDIT_RESPONSE") {
+
+        const countRabbit = ((state.legs - (state.heads * 2)) / 2)
+        const countChicken = state.heads - countRabbit
+        if (!countRabbit) {
+            return { ...state, status: false }
+        } else {
+            return { ...state, response: { rabbit: countRabbit, chicken: countChicken } ,status: true }
+        }
     }
     return state;
 }
