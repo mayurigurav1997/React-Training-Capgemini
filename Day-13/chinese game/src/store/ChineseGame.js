@@ -11,8 +11,12 @@ const initialState = {
 }
 
 let chineseGameReducer = (state=initialState, action) => {
+    const {type, payload} = action;
 
-
+    if(type=="READ")
+    {
+        return {...state, fields:{...state.fields, [payload.name]:payload.value}};
+    }
     return state;
 }
 

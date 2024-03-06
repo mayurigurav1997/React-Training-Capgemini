@@ -1,13 +1,18 @@
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 
 let RabitChickenCountApp = () => {
 
     let state = useSelector(state => state.game);
+    const dispatch = useDispatch()
 
     let text_change = (event) => {
         const { name, value } = event.target;
-
+        dispatch({ type: "READ", payload: { name, value } });
+        if(name==="legs"){
+            dispatch({type:"EDIT_RESPONSE",payload:null})
+        }
+         
 
     }
     return (
