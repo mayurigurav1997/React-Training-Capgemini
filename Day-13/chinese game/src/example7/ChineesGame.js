@@ -1,4 +1,4 @@
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 
 let RabitChickenCountApp = () => {
@@ -9,8 +9,8 @@ let RabitChickenCountApp = () => {
     let text_change = (event) => {
         const { name, value } = event.target;
         dispatch({ type: "READ", payload: { name, value } });
-        if(name==="legs"){
-            dispatch({type:"EDIT_RESPONSE",payload:null})
+        if (name === "legs") {
+            dispatch({ type: "EDIT_RESPONSE", payload: null })
         }
     }
     return (
@@ -23,8 +23,6 @@ let RabitChickenCountApp = () => {
                     </div>
 
                     <div className="card-body">
-
-
 
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control text-center" id="floatingInput1" defaultValue={state.heads} name="heads" placeholder="head count*" onChange={text_change} />
