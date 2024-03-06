@@ -1,0 +1,23 @@
+{
+    "users":[
+        {
+            "id":8943, 
+            "firstname":"smith", 
+            "lastname":"devid",
+            "email":"smith@website.com",
+            "password":"secret",
+            "token":"3480q98jadfjoiu34",
+            "type":"admin"
+        },
+
+        {
+            "id":2424, 
+            "firstname":"james", 
+            "lastname":"devid",
+            "email":"james@website.com",
+            "password":"secret",
+            "token":"3480q98jadfjoiu34",
+            "type":"guest"
+        }
+    ]
+}
