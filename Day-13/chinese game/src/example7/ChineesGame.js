@@ -12,8 +12,6 @@ let RabitChickenCountApp = () => {
         if(name==="legs"){
             dispatch({type:"EDIT_RESPONSE",payload:null})
         }
-         
-
     }
     return (
         <>

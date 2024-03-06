@@ -15,7 +15,11 @@ let chineseGameReducer = (state=initialState, action) => {
 
     if(type=="READ")
     {
-        return {...state, fields:{...state.fields, [payload.name]:payload.value}};
+        return {...state, [payload.name]:payload.value};
+    }else if(type=="EDIT_RESPONSE"){
+        const countRabbit= ((state.legs-(state.heads*2))/2)
+        const countChicken = state.heads-countRabbit
+        return {...state,response:{rabbit: countRabbit, chicken:countChicken }}
     }
     return state;
 }
